@@ -15,6 +15,7 @@ It allows scheduling backups using `rsync` and `cron`, with optional cloud sync 
 ## Quick Start: Docker Run
 Run the container interactively or in detached mode with all necessary volumes, environment variables, and cron job:
 
+```bash
 docker run -d \
   --name backup-bot \                     # Local container name
   --restart unless-stopped \              # Automatically restart if stopped
@@ -32,9 +33,10 @@ docker run -d \
     crontab /etc/cron.d/backup-cron &&
     cron -f
   "
+```
 
 # Usage: Docker Compose
-# Easily run the backup container using Docker Compose
+Easily run the backup container using Docker Compose
 
 ```yaml
 version: "3.9"
