@@ -43,7 +43,7 @@ services:
     image: danielleal404/backup-bot:latest
     container_name: backup-bot
     restart: unless-stopped
-    
+
     # Map your source files (read-only)
     volumes:
       - /mnt/HDD4TB-FILES:/mnt/HDD4TB-FILES:ro
@@ -57,7 +57,7 @@ services:
     environment:
       # Set your timezone
       - TZ=America/Sao_Paulo
-    
+
     tty: true
 
     command: >
