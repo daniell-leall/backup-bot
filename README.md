@@ -36,40 +36,42 @@ docker run -d \
 # Usage: Docker Compose
 # Easily run the backup container using Docker Compose
 
+```yaml
 version: "3.9"
 
 services:
-  backup:
-    image: danielleal404/backup-bot:latest
-    container_name: backup-bot
-    restart: unless-stopped
+backup:
+image: danielleal404/backup-bot:latest
+container_name: backup-bot
+restart: unless-stopped
 
-    # Map your source files (read-only)
-    volumes:
-      - /mnt/HDD4TB-FILES:/mnt/HDD4TB-FILES:ro
+# Map your source files (read-only)
+volumes:
+  - /mnt/HDD4TB-FILES:/mnt/HDD4TB-FILES:ro
 
-    # Map your backup destination
-      - /mnt/HDD4TB-BACKUP:/mnt/HDD4TB-BACKUP
+# Map your backup destination
+  - /mnt/HDD4TB-BACKUP:/mnt/HDD4TB-BACKUP
 
-    # Map logs folder
-      - /opt/backup/logs:/var/log/backup
+# Map logs folder
+  - /opt/backup/logs:/var/log/backup
 
-    environment:
-      # Set your timezone
-      - TZ=America/Sao_Paulo
+environment:
+  # Set your timezone
+  - TZ=America/Sao_Paulo
 
-    tty: true
+tty: true
 
-    command: >
-      bash -c "
-        # Cron job at 05:00 AM
-        echo '00 5 * * * root rsync -ah --info=progress2 --partial --append-verify --delete \
-        /mnt/HDD4TB-FILES/ /mnt/HDD4TB-BACKUP/backup/ >> /var/log/backup/backup.log 2>&1' \
-        > /etc/cron.d/backup-cron &&
-        chmod 644 /etc/cron.d/backup-cron &&
-        crontab /etc/cron.d/backup-cron &&
-        cron -f
-      "
+command: >
+  bash -c "
+    # Cron job at 05:00 AM
+    echo '00 5 * * * root rsync -ah --info=progress2 --partial --append-verify --delete \
+    /mnt/HDD4TB-FILES/ /mnt/HDD4TB-BACKUP/backup/ >> /var/log/backup/backup.log 2>&1' \
+    > /etc/cron.d/backup-cron &&
+    chmod 644 /etc/cron.d/backup-cron &&
+    crontab /etc/cron.d/backup-cron &&
+    cron -f
+  "
+```
 
 
 
