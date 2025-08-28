@@ -1,19 +1,19 @@
-# backup-bot
-# Docker image based on Ubuntu 22.04 with rsync, cron, rclone, and timezone support for automated backups
+# Backup-Bot
+Docker image based on Ubuntu 22.04 with rsync, cron, rclone, and timezone support for automated backups.
 
-# Overview
-# This Docker image is based on Ubuntu 22.04 with pre-installed tools for automated backups.
-# Allows scheduling backups using rsync and cron, with optional cloud sync via rclone (not yet configured).
+## Overview
+This Docker image is based on Ubuntu 22.04 with pre-installed tools for automated backups.
+It allows scheduling backups using `rsync` and `cron`, with optional cloud sync via `rclone` (not yet configured).
 
-# Pre-installed Software
-# rsync            - file synchronization and backup
-# cron             - scheduled task management
-# rclone           - cloud storage sync (future use, not configured)
-# ca-certificates  - SSL support
-# tzdata           - timezone configuration
+## Pre-installed Software
+- `rsync`            - file synchronization and backup
+- `cron`             - scheduled task management
+- `rclone`           - cloud storage sync (future use, not configured)
+- `ca-certificates`  - SSL support
+- `tzdata`           - timezone configuration
 
-# Quick Start: Docker Run
-# Run the container interactively or in detached mode with all necessary volumes, environment variables, and cron job
+## Quick Start: Docker Run
+Run the container interactively or in detached mode with all necessary volumes, environment variables, and cron job:
 
 docker run -d \
   --name backup-bot \                     # Local container name
@@ -33,8 +33,8 @@ docker run -d \
     cron -f
   "
 
-# Usage: Docker Compose
-# Easily run the backup container using Docker Compose
+## Usage: Docker Compose
+Easily run the backup container using Docker Compose:
 
 version: "3.9"
 
@@ -71,8 +71,8 @@ services:
         cron -f
       "
 
-# Notes
-# - rclone is installed but not yet used in the backup job; future releases will add cloud backup support
-# - Logs are saved in /var/log/backup/backup.log
-# - Adjust volume paths and timezone (TZ) according to your system
-# - The cron job is set to run daily at 05:00 AM; modify the schedule in docker run or docker-compose as needed
+## Notes
+- `rclone` is installed but not yet used in the backup job; future releases will add cloud backup support.
+- Logs are saved in `/var/log/backup/backup.log`.
+- Adjust volume paths and timezone (`TZ`) according to your system.
+- The cron job is set to run daily at 05:00 AM; modify the schedule in `docker run` or `docker-compose` as needed.
