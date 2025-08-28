@@ -1,29 +1,28 @@
 # backup-bot
-Docker image based on Ubuntu 22.04 with rsync, cron, rclone, and timezone support for automated backups.
-# Ubuntu Backup-Bot
+# Docker image based on Ubuntu 22.04 with rsync, cron, rclone, and timezone support for automated backups.
 
-This is a **Docker image based on Ubuntu 22.04** with pre-installed tools for automated backups.
+## Overview
+# This Docker image is based on Ubuntu 22.04 with pre-installed tools for automated backups.
+# Allows scheduling backups using rsync and cron, with optional cloud sync via rclone (not yet configured).
 
 ## Pre-installed Software
-
-- `rsync` – file synchronization and backup  
-- `cron` – scheduled task management  
-- `rclone` – cloud storage sync (not yet configured in this release)  
-- `ca-certificates` – SSL support  
-- `tzdata` – timezone configuration  
+# rsync       - file synchronization and backup
+# cron        - scheduled task management
+# rclone      - cloud storage sync (future use, not configured)
+# ca-certificates - SSL support
+# tzdata      - timezone configuration
 
 ## Quick Start: Docker Run
-
-Run the container interactively with all necessary volumes, environment, and cron command:
+# Run the container interactively or in detached mode with all necessary volumes, environment variables, and cron job:
 
 docker run -d \
-  --name backup-bot \                     # Name your container
+  --name backup-bot \                     # Local container name
   --restart unless-stopped \              # Automatically restart if stopped
   -v /mnt/HDD4TB-FILES:/mnt/HDD4TB-FILES:ro \   # Map source files (read-only)
   -v /mnt/HDD4TB-BACKUP:/mnt/HDD4TB-BACKUP \   # Map backup destination
   -v /opt/backup/logs:/var/log/backup \        # Map logs folder
   -e TZ=America/Sao_Paulo \                   # Set your timezone
-  danielleal404/backup-bot:latest \
+  danielleal404/backup-bot:latest \           # Docker Hub image to pull
   bash -c "
     # Cron job at 05:00 AM
     echo '00 5 * * * root rsync -ah --info=progress2 --partial --append-verify --delete \
@@ -35,6 +34,7 @@ docker run -d \
   "
 
 ## Usage: Docker Compose
+# Easily run the backup container using Docker Compose:
 
 version: "3.9"
 
@@ -72,8 +72,7 @@ services:
       "
 
 ## Notes
-
-- `rclone` is installed but not yet used in the backup job. Future releases will add cloud backup support.  
-- Logs are saved in `/var/log/backup/backup.log`.  
-- Adjust volume paths and timezone (`TZ`) according to your system.  
-- The cron job is set to run every day at 05:00 AM. You can modify the schedule in the `docker run` or `docker-compose` command.  
+# - rclone is installed but not yet used in the backup job; future releases will add cloud backup support.
+# - Logs are saved in /var/log/backup/backup.log
+# - Adjust volume paths and timezone (TZ) according to your system
+# - The cron job is set to run daily at 05:00 AM; modify the schedule in docker run or docker-compose as needed
