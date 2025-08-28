@@ -33,8 +33,8 @@ docker run -d \
     cron -f
   "
 
-## Usage: Docker Compose
-Easily run the backup container using Docker Compose:
+# Usage: Docker Compose
+# Easily run the backup container using Docker Compose
 
 version: "3.9"
 
@@ -70,6 +70,7 @@ services:
         crontab /etc/cron.d/backup-cron &&
         cron -f
       "
+
 
 ## Notes
 - `rclone` is installed but not yet used in the backup job; future releases will add cloud backup support.
