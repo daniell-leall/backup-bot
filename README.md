@@ -35,7 +35,7 @@ docker run -d \
   "
 ```
 
-# Usage: Docker Compose
+## Usage: Docker Compose
 Easily run the backup container using Docker Compose
 
 ```yaml
@@ -75,10 +75,8 @@ command: >
   "
 ```
 
-
-
 ## Notes
 - `rclone` is installed but not yet used in the backup job; future releases will add cloud backup support.
 - Logs are saved in `/var/log/backup/backup.log`.
 - Adjust volume paths and timezone (`TZ`) according to your system.
-- The cron job is set to run daily at 05:00 AM; modify the schedule in `docker run` or `docker-compose` as needed.
+- The cron job is set to run daily at 05:00 AM; modify the schedule in `docker run` or `docker compose` as needed.
